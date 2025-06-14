@@ -16,11 +16,27 @@ shadowRoot.appendChild(container)
 //   </StrictMode>,
 // )
 
+fetch('/.vite/manifest.json').then(res => res.json()).then(manifest => {
+  const cssFile = manifest['index.html']?.css || []
+
+cssFile.forEach(file => {
 // ✅ Dynamically create <link> tag for your stylesheet
 const styleLink = document.createElement('link');
 styleLink.rel = 'stylesheet';
-styleLink.href = '/src/index.css'; // Path should be relative to public/build output
+// styleLink.href = '/src/index.css'; // Path should be relative to public/build output
+styleLink.setAttribute('href', `/${file}`);
+styleLink.setAttribute('crossorigin', '');
 shadowRoot.appendChild(styleLink); // Inject into shadow root
+  })
+})
+
+// // ✅ Dynamically create <link> tag for your stylesheet
+// const styleLink = document.createElement('link');
+// styleLink.rel = 'stylesheet';
+// styleLink.href = '/src/index.css'; // Path should be relative to public/build output
+// styleLink.setAttribute('href', `/${cssFile}`);
+// styleLink.setAttribute('crossorigin', '');
+// shadowRoot.appendChild(styleLink); // Inject into shadow root
 
 createRoot(container).render(
   <StrictMode>
