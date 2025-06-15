@@ -16,7 +16,7 @@ shadowRoot.appendChild(container)
 //   </StrictMode>,
 // )
 
-fetch('/.vite/manifest.json').then(res => res.json()).then(manifest => {
+fetch('/manifest.json').then(res => res.json()).then(manifest => {
   const cssFile = manifest['index.html']?.css || []
 
 cssFile.forEach(file => {
