@@ -16,6 +16,21 @@ shadowRoot.appendChild(container)
 //   </StrictMode>,
 // )
 
+if (import.meta.env.DEV) {
+  // ✅ In development mode
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = '/src/index.css'; // Or wherever your dev CSS is
+  link.crossOrigin = '';
+  shadowRoot.appendChild(link);
+
+createRoot(container).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
+}else{
+
 fetch('/manifest.json').then(res => res.json()).then(manifest => {
   const cssFile = manifest['index.html']?.css || []
 
@@ -43,3 +58,4 @@ createRoot(container).render(
     <App />
   </StrictMode>,
 )
+}
