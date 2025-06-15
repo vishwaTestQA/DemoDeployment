@@ -10,6 +10,15 @@ const shadowRoot = rootElement.attachShadow({ mode: 'open' })
 const container = document.createElement('div')
 shadowRoot.appendChild(container)
 
+// Set dynamic --vh on the shadow root
+function setVh() {
+  const vh = window.innerHeight * 0.01;
+  shadowRoot.host.style.setProperty('--vh', `${vh}px`);
+}
+setVh();
+window.addEventListener('resize', setVh);
+window.addEventListener('orientationchange', setVh);
+
 // createRoot(document.getElementById('root')).render(
 //   <StrictMode>
 //     <App />
